@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Essay Grader</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #fafafa;
+      color: #1a1a1a;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+      padding: 16px;
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header h1 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .header-sub {
+      font-size: 11px;
+      opacity: 0.9;
+    }
+
+    .content {
+      padding: 16px;
+    }
+
+    /* Input Section */
+    .input-section {
+      background: white;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+      border: 1px solid #e5e5e5;
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    .form-group:last-child {
+      margin-bottom: 0;
+    }
+
+    label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      color: #525252;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    input[type="text"], select, textarea {
+      width: 100%;
+      padding: 8px 10px;
+      font-size: 13px;
+      border: 1px solid #d4d4d4;
+      border-radius: 6px;
+      background: white;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #3b82f6;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+      font-family: inherit;
+    }
+
+    .btn {
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-primary {
+      background: #3b82f6;
+      color: white;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .btn-primary:hover {
+      background: #2563eb;
+    }
+
+    .btn-primary:disabled {
+      background: #93c5fd;
+      cursor: not-allowed;
+    }
+
+    .btn-secondary {
+      background: #f5f5f5;
+      color: #525252;
+      border: 1px solid #d4d4d4;
+    }
+
+    .btn-secondary:hover {
+      background: #e5e5e5;
+    }
+
+    .btn-small {
+      padding: 6px 10px;
+      font-size: 11px;
+    }
+
+    /* Loading State */
+    .loading {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .loading.show {
+      display: block;
+    }
+
+    .spinner {
+      width: 32px;
+      height: 32px;
+      border: 3px solid #e5e5e5;
+      border-top-color: #3b82f6;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 12px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      color: #525252;
+      font-size: 13px;
+    }
+
+    /* Results Section */
+    .results-section {
+      display: none;
+    }
+
+    .results-section.show {
+      display: block;
+    }
+
+    .result-card {
+      background: white;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 12px;
+      border: 1px solid #e5e5e5;
+    }
+
+    .result-card h3 {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Score Display */
+    .scores-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .score-item {
+      background: #f9fafb;
+      padding: 10px;
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    .score-value {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .score-value.high { color: #16a34a; }
+    .score-value.medium { color: #ca8a04; }
+    .score-value.low { color: #dc2626; }
+
+    .score-label {
+      font-size: 10px;
+      color: #737373;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Feedback Lists */
+    .feedback-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .feedback-list li {
+      padding: 8px 0;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 12px;
+    }
+
+    .feedback-list li:last-child {
+      border-bottom: none;
+    }
+
+    /* AI Detection */
+    .ai-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .ai-badge.low {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .ai-badge.medium {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .ai-badge.high {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    /* Skill Gaps */
+    .skill-gaps {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .skill-tag {
+      background: #eff6ff;
+      color: #1d4ed8;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+    }
+
+    .skill-tag.priority {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    /* Collapsible Sections */
+    .collapsible {
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .collapsible::after {
+      content: '▼';
+      font-size: 10px;
+      margin-left: auto;
+      transition: transform 0.2s;
+    }
+
+    .collapsible.collapsed::after {
+      transform: rotate(-90deg);
+    }
+
+    .collapsible-content {
+      display: block;
+    }
+
+    .collapsible.collapsed + .collapsible-content {
+      display: none;
+    }
+
+    /* Error State */
+    .error-message {
+      background: #fee2e2;
+      border: 1px solid #fecaca;
+      color: #991b1b;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+
+    /* Actions Bar */
+    .actions-bar {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid #e5e5e5;
+    }
+
+    .actions-bar .btn {
+      flex: 1;
+    }
+
+    /* Practice Worksheet Status */
+    .practice-status {
+      font-size: 11px;
+      color: #525252;
+      margin-top: 8px;
+      padding: 8px;
+      background: #f5f5f5;
+      border-radius: 4px;
+    }
+
+    /* Responsive */
+    @media (max-width: 300px) {
+      .scores-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Writing Assistant Pro</h1>
+    <div class="header-sub" id="platformInfo">Ready to grade</div>
+  </div>
+
+  <div class="content">
+    <!-- Input Section -->
+    <div class="input-section" id="inputSection">
+      <div class="form-group">
+        <label>Student Name</label>
+        <input type="text" id="studentName" placeholder="Auto-detected or enter manually">
+      </div>
+
+      <div class="form-group">
+        <label>Grade Level</label>
+        <select id="gradeLevel">
+          <option value="auto">Auto-detect</option>
+          <option value="6">6th Grade</option>
+          <option value="7">7th Grade</option>
+          <option value="8">8th Grade</option>
+          <option value="9">9th Grade</option>
+          <option value="10">10th Grade</option>
+          <option value="11">11th Grade</option>
+          <option value="12">12th Grade</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Essay Text</label>
+        <textarea id="essayText" placeholder="Paste essay text here or click 'Extract from Page'"></textarea>
+      </div>
+
+      <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+        <button class="btn btn-secondary btn-small" id="extractBtn" style="flex: 1;">
+          📋 Extract from Page
+        </button>
+        <button class="btn btn-secondary btn-small" id="clearBtn">
+          ✕ Clear
+        </button>
+      </div>
+
+      <button class="btn btn-primary" id="gradeBtn">
+        ✨ Grade Essay
+      </button>
+    </div>
+
+    <!-- Loading State -->
+    <div class="loading" id="loadingState">
+      <div class="spinner"></div>
+      <div class="loading-text">Analyzing essay...</div>
+    </div>
+
+    <!-- Error Message -->
+    <div class="error-message" id="errorMessage" style="display: none;"></div>
+
+    <!-- Results Section -->
+    <div class="results-section" id="resultsSection">
+      <!-- Student Info -->
+      <div class="result-card">
+        <h3>📝 <span id="resultStudentName">Student</span></h3>
+        <div style="font-size: 12px; color: #525252;">
+          <span id="resultGradeLevel">Grade Level</span> •
+          <span id="resultEssayType">Essay Type</span> •
+          <span id="resultWordCount">0 words</span>
+        </div>
+      </div>
+
+      <!-- Scores -->
+      <div class="result-card">
+        <h3 class="collapsible">📊 Scores</h3>
+        <div class="collapsible-content">
+          <div class="scores-grid">
+            <div class="score-item">
+              <div class="score-value" id="grammarScore">--</div>
+              <div class="score-label">Grammar</div>
+            </div>
+            <div class="score-item">
+              <div class="score-value" id="spellingScore">--</div>
+              <div class="score-label">Spelling</div>
+            </div>
+            <div class="score-item">
+              <div class="score-value" id="originalityScore">--</div>
+              <div class="score-label">Originality</div>
+            </div>
+            <div class="score-item">
+              <div class="score-value" id="overallScore">--</div>
+              <div class="score-label">Overall</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Detection -->
+      <div class="result-card">
+        <h3 class="collapsible">🤖 AI Detection</h3>
+        <div class="collapsible-content">
+          <div style="margin-bottom: 8px;">
+            Likelihood: <span class="ai-badge" id="aiLikelihood">--</span>
+          </div>
+          <div id="aiRedFlags" style="font-size: 12px; color: #525252;"></div>
+        </div>
+      </div>
+
+      <!-- Skill Gaps -->
+      <div class="result-card">
+        <h3 class="collapsible">🎯 Skill Gaps</h3>
+        <div class="collapsible-content">
+          <div id="prioritySkills"></div>
+          <div class="skill-gaps" id="skillGapsList"></div>
+        </div>
+      </div>
+
+      <!-- Feedback -->
+      <div class="result-card">
+        <h3 class="collapsible">💬 Feedback</h3>
+        <div class="collapsible-content">
+          <p id="overallFeedback" style="margin-bottom: 12px;"></p>
+
+          <div style="margin-bottom: 12px;">
+            <strong style="color: #16a34a; font-size: 11px;">✓ STRENGTHS</strong>
+            <ul class="feedback-list" id="strengthsList"></ul>
+          </div>
+
+          <div>
+            <strong style="color: #ca8a04; font-size: 11px;">→ AREAS TO IMPROVE</strong>
+            <ul class="feedback-list" id="improvementsList"></ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="actions-bar">
+        <button class="btn btn-secondary" id="copyGradeBtn">
+          📋 Copy Grade
+        </button>
+        <button class="btn btn-primary" id="generatePracticeBtn">
+          📝 Generate Practice
+        </button>
+      </div>
+
+      <div class="practice-status" id="practiceStatus" style="display: none;"></div>
+
+      <button class="btn btn-secondary" id="newGradeBtn" style="width: 100%; margin-top: 12px;">
+        ← Grade Another Essay
+      </button>
+    </div>
+  </div>
+
+  <script src="sidebar.js"></script>
+</body>
+</html>

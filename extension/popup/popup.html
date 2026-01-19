@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Writing Assistant Pro</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      width: 320px;
+      background: #fafafa;
+      color: #1a1a1a;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+      padding: 16px;
+      color: white;
+    }
+
+    .header h1 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .header p {
+      font-size: 12px;
+      opacity: 0.9;
+    }
+
+    .content {
+      padding: 16px;
+    }
+
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px;
+      background: white;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      border: 1px solid #e5e5e5;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ef4444;
+    }
+
+    .status-dot.active {
+      background: #22c55e;
+    }
+
+    .status-text {
+      font-size: 13px;
+      color: #525252;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      color: #525252;
+      margin-bottom: 6px;
+    }
+
+    select, input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 13px;
+      border: 1px solid #d4d4d4;
+      border-radius: 6px;
+      background: white;
+      color: #1a1a1a;
+      transition: border-color 0.2s;
+    }
+
+    select:focus, input:focus {
+      outline: none;
+      border-color: #3b82f6;
+    }
+
+    .api-key-wrapper {
+      position: relative;
+    }
+
+    .api-key-wrapper input {
+      padding-right: 40px;
+    }
+
+    .toggle-visibility {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #737373;
+      padding: 4px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: #3b82f6;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #2563eb;
+    }
+
+    .btn-primary:disabled {
+      background: #93c5fd;
+      cursor: not-allowed;
+    }
+
+    .saved-message {
+      display: none;
+      text-align: center;
+      padding: 8px;
+      background: #dcfce7;
+      color: #166534;
+      border-radius: 6px;
+      font-size: 12px;
+      margin-top: 12px;
+    }
+
+    .saved-message.show {
+      display: block;
+    }
+
+    .divider {
+      height: 1px;
+      background: #e5e5e5;
+      margin: 16px 0;
+    }
+
+    .shortcut-info {
+      background: #f5f5f5;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      color: #525252;
+    }
+
+    .shortcut-info strong {
+      color: #1a1a1a;
+    }
+
+    .shortcut-key {
+      display: inline-block;
+      background: white;
+      border: 1px solid #d4d4d4;
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-family: monospace;
+      font-size: 11px;
+    }
+
+    .security-note {
+      font-size: 11px;
+      color: #737373;
+      margin-top: 16px;
+      padding: 10px;
+      background: #f5f5f5;
+      border-radius: 6px;
+      line-height: 1.4;
+    }
+
+    .security-note strong {
+      color: #525252;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Writing Assistant Pro</h1>
+    <p>AI-powered essay analysis</p>
+  </div>
+
+  <div class="content">
+    <div class="status">
+      <div class="status-dot" id="statusDot"></div>
+      <span class="status-text" id="statusText">Not configured</span>
+    </div>
+
+    <div class="form-group">
+      <label for="apiProvider">AI Provider</label>
+      <select id="apiProvider">
+        <option value="anthropic">Anthropic (Claude)</option>
+        <option value="openai">OpenAI (GPT-4)</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="apiKey">API Key</label>
+      <div class="api-key-wrapper">
+        <input type="password" id="apiKey" placeholder="Enter your API key">
+        <button class="toggle-visibility" id="toggleKey" type="button">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" id="saveBtn">Save Settings</button>
+
+    <div class="saved-message" id="savedMessage">
+      ✓ Settings saved securely
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="shortcut-info">
+      <strong>Quick Grade:</strong><br>
+      Press <span class="shortcut-key">Ctrl</span> + <span class="shortcut-key">Shift</span> + <span class="shortcut-key">G</span> on any Schoology or Google Classroom submission page.
+    </div>
+
+    <div class="security-note">
+      <strong>🔒 Privacy:</strong> Your API key is stored locally in your browser only. No data is sent anywhere except directly to your chosen AI provider. No analytics, no tracking, no external servers.
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

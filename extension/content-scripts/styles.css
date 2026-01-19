@@ -1,0 +1,37 @@
+/* Content Script Styles - Minimal footprint */
+
+#essay-grader-indicator {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999999;
+  pointer-events: none;
+}
+
+#essay-grader-indicator .eg-indicator {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+  opacity: 0.7;
+  transition: opacity 0.2s, transform 0.2s;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+#essay-grader-indicator .eg-indicator:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* Hide on print */
+@media print {
+  #essay-grader-indicator {
+    display: none !important;
+  }
+}
