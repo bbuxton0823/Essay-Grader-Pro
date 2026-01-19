@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Install Essay Grader Pro - 2 Minute Setup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            color: #1a1a2e;
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .subtitle {
+            color: #666;
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 32px;
+        }
+
+        .time-badge {
+            background: #10b981;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 24px;
+        }
+
+        .step {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 32px;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
+            color: #1a1a2e;
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+        }
+
+        .step-content p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .download-btn {
+            display: block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            padding: 20px 40px;
+            border-radius: 12px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            text-align: center;
+            margin: 32px 0;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .download-btn span {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: normal;
+            opacity: 0.9;
+            margin-top: 4px;
+        }
+
+        .screenshot {
+            background: #f8f9fa;
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            color: #888;
+            margin: 16px 0;
+        }
+
+        .tip {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 16px 0;
+        }
+
+        .tip strong {
+            color: #92400e;
+        }
+
+        h2 {
+            color: #1a1a2e;
+            font-size: 1.8rem;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .faq-item {
+            margin-bottom: 24px;
+        }
+
+        .faq-item h4 {
+            color: #1a1a2e;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .faq-item p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .privacy-box {
+            background: #ecfdf5;
+            border: 2px solid #10b981;
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 24px;
+        }
+
+        .privacy-box h3 {
+            color: #065f46;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .privacy-box ul {
+            list-style: none;
+            color: #047857;
+        }
+
+        .privacy-box li {
+            padding: 6px 0;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .privacy-box li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-weight: bold;
+        }
+
+        .code {
+            background: #1a1a2e;
+            color: #a5b4fc;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        footer {
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+            opacity: 0.9;
+        }
+
+        footer a {
+            color: white;
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                padding: 24px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .step {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Essay Grader Pro</h1>
+            <p class="subtitle">AI-Powered Essay Grading for Educators</p>
+
+            <div style="text-align: center;">
+                <span class="time-badge">⏱️ 2 Minute Install</span>
+            </div>
+
+            <a href="https://github.com/bbuxton0823/Essay-Grader-Pro/archive/refs/heads/main.zip" class="download-btn">
+                📥 Download Essay Grader Pro
+                <span>Click to download the extension files</span>
+            </a>
+
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Download & Unzip</h3>
+                    <p>Click the download button above. Find the downloaded ZIP file (usually in your Downloads folder) and double-click to unzip it. You'll see a folder called <span class="code">Essay-Grader-Pro-main</span>.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Open Chrome Extensions</h3>
+                    <p>Open Google Chrome and type <span class="code">chrome://extensions</span> in the address bar, then press Enter.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Enable Developer Mode</h3>
+                    <p>Look for the <strong>"Developer mode"</strong> toggle in the top-right corner of the page. Click it to turn it ON (it should turn blue).</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>Load the Extension</h3>
+                    <p>Click the <strong>"Load unpacked"</strong> button that appears. Navigate to your downloaded folder and select the <span class="code">extension</span> folder inside <span class="code">Essay-Grader-Pro-main</span>. Click "Select Folder".</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <h3>Add Your API Key</h3>
+                    <p>Click the puzzle piece icon in Chrome's toolbar, then click "Essay Grader Pro". Enter your Anthropic or OpenAI API key and click Save. <em>(Need a key? See FAQ below)</em></p>
+                </div>
+            </div>
+
+            <div class="tip">
+                <strong>💡 You're done!</strong> Go to Schoology or Google Classroom, open a student submission, and press <span class="code">Ctrl+Shift+G</span> (or <span class="code">Cmd+Shift+G</span> on Mac) to start grading!
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Frequently Asked Questions</h2>
+
+            <div class="faq-item">
+                <h4>Where do I get an API key?</h4>
+                <p>You can get one from <a href="https://console.anthropic.com/" target="_blank">Anthropic (Claude)</a> or <a href="https://platform.openai.com/" target="_blank">OpenAI</a>. Create an account, add a payment method, and generate an API key. Cost is typically $0.01-0.05 per essay.</p>
+            </div>
+
+            <div class="faq-item">
+                <h4>Will my IT department see this?</h4>
+                <p>No. Extensions installed in "Developer mode" are local to your browser and don't appear in enterprise management tools. This is a personal browser extension only you can see.</p>
+            </div>
+
+            <div class="faq-item">
+                <h4>Is student data safe?</h4>
+                <p>Yes. Essays are sent directly from your browser to the AI provider (Claude or OpenAI) and nowhere else. There's no server, no database, no data collection. Everything stays between you and your chosen AI.</p>
+            </div>
+
+            <div class="faq-item">
+                <h4>What if I see an error when loading?</h4>
+                <p>Make sure you selected the <span class="code">extension</span> folder (not the main folder). The extension folder contains a file called <span class="code">manifest.json</span>.</p>
+            </div>
+
+            <div class="faq-item">
+                <h4>Can I also grade essays outside of Schoology/Classroom?</h4>
+                <p>Yes! Open the <span class="code">index.html</span> file in your browser for a full web application with batch grading, student progress tracking, and more features.</p>
+            </div>
+
+            <div class="privacy-box">
+                <h3>🔒 Privacy First</h3>
+                <ul>
+                    <li>All processing happens in YOUR browser</li>
+                    <li>No data sent to any server (except your chosen AI)</li>
+                    <li>No tracking, analytics, or telemetry</li>
+                    <li>Your API key stays in your browser's local storage</li>
+                    <li>Open source - you can inspect every line of code</li>
+                </ul>
+            </div>
+        </div>
+
+        <footer>
+            <p>Built for educators who value privacy, efficiency, and individualized student support.</p>
+            <p style="margin-top: 8px;"><a href="https://github.com/bbuxton0823/Essay-Grader-Pro">View on GitHub</a></p>
+        </footer>
+    </div>
+</body>
+</html>

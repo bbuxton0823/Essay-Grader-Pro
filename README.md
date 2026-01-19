@@ -2,6 +2,9 @@
 
 **AI-Powered Essay Assessment Tool for Educators**
 
+> ### 🚀 [One-Click Install Guide for Educators](https://bbuxton0823.github.io/Essay-Grader-Pro/INSTALL.html)
+> **New to Essay Grader Pro?** Follow our 2-minute visual install guide - no tech experience needed!
+
 A comprehensive suite of tools designed for K-12 teachers to grade student essays using AI-powered analysis with i-Ready Reading & Writing Assessment standards. Includes both a standalone web application and a browser extension for Schoology/Google Classroom integration.
 
 ![Version](https://img.shields.io/badge/Version-2.0-green)
